@@ -27,7 +27,7 @@ use std::convert::TryInto;
 include!(concat!(env!("OUT_DIR"), "/lib.rs"));
 
 /// Wrap IronOxide to allow namespacing of the advanced operations
-struct IronSdkAdvanced<'a>(&'a IronOxide);
+pub struct IronSdkAdvanced<'a>(&'a IronOxide);
 
 impl<'a> IronSdkAdvanced<'a> {
     pub fn advanced(ironoxide: &IronOxide) -> IronSdkAdvanced {
