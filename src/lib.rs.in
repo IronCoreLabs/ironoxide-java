@@ -47,22 +47,6 @@ class UserId {
     private constructor = empty;
     static_method user_id::validate(s: &str) -> Result<UserId, String>;
     method user_id::id(&self) -> String; alias getId;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode();
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof UserId){
-            UserId id = (UserId) obj;
-            return id.getId().equals(this.getId());
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
@@ -73,22 +57,6 @@ class GroupId {
     private constructor = empty;
     static_method group_id::validate(s: &str) -> Result<GroupId, String>;
     method group_id::id(&self) -> String; alias getId;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode();
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof GroupId){
-            GroupId id = (GroupId) obj;
-            return id.getId().equals(this.getId());
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
@@ -101,23 +69,6 @@ class UserOrGroupId {
     method UserOrGroupJ::is_user(&self) -> bool; alias isUser;
     method UserOrGroupJ::is_group(&self) -> bool; alias isGroup;
 
-foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode() * Boolean.hashCode(this.isUser());
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof UserOrGroupId){
-            UserOrGroupId uog = (UserOrGroupId) obj;
-            return uog.getId().equals(this.getId()) &&
-            uog.isUser() == this.isUser();
-        }
-        return false;
-    }
-"#;
 
 });
 
@@ -129,22 +80,6 @@ class GroupName {
     static_method group_name::validate(s: &str) -> Result<GroupName, String>;
     method group_name::name(&self) -> String; alias getName;
     method GroupName::clone(&self) -> GroupName;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.getName().hashCode();
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof GroupName){
-            GroupName name = (GroupName) obj;
-            return name.getName().equals(this.getName());
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
@@ -162,22 +97,6 @@ class DocumentId {
     private constructor = empty;
     static_method document_id::validate(s: &str) -> Result<DocumentId, String>;
     method document_id::id(&self) -> String; alias getId;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.getId().hashCode();
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof DocumentId){
-            DocumentId id = (DocumentId) obj;
-            return id.getId().equals(this.getId());
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
@@ -188,22 +107,6 @@ class DocumentName {
     static_method document_name::validate(s: &str) -> Result<DocumentName, String>;
     method document_name::name(&self) -> String; alias getName;
     method DocumentName::clone(&self) -> DocumentName;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.getName().hashCode();
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof DocumentName){
-            DocumentName name = (DocumentName) obj;
-            return name.getName().equals(this.getName());
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
@@ -214,22 +117,6 @@ class DeviceId {
     static_method device_id::validate(s: i64) -> Result<DeviceId, String>;
     method device_id::id(&self) -> i64; alias getId;
     method DeviceId::clone(&self) -> DeviceId;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return Long.hashCode(this.getId());
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof DeviceId){
-            DeviceId id = (DeviceId) obj;
-            return id.getId() == this.getId();
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
@@ -240,23 +127,6 @@ foreigner_class!(
         method user_update_private_key_result::user_master_private_key(&self) -> EncryptedPrivateKey; alias getUserMasterPrivateKey;
         /// True if this user's master key requires rotation
         method user_update_private_key_result::needs_rotation(&self) -> bool; alias getNeedsRotation;
-        foreigner_code r#"
-        /**
-         * This implementation calls native code, which means it's relatively slow.
-         */
-        @Override
-        public int hashCode() {
-            return this.getUserMasterPrivateKey().hashCode() * Boolean.hashCode(this.getNeedsRotation());
-        }
-        public boolean equals(Object obj) {
-            if(obj instanceof UserUpdatePrivateKeyResult){
-                UserUpdatePrivateKeyResult uupkr = (UserUpdatePrivateKeyResult) obj;
-                return (uupkr.getUserMasterPrivateKey().equals(this.getUserMasterPrivateKey()) && 
-                uupkr.getNeedsRotation() == this.getNeedsRotation());
-            }
-            return false;
-        }
-    "#;
 });
 
 foreigner_class!(
@@ -264,22 +134,6 @@ foreigner_class!(
     self_type EncryptedPrivateKey;
     private constructor = empty;
     method encrypted_private_key::as_bytes(&self) -> Vec<i8>; alias asBytes;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.asBytes().hashCode();
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof EncryptedPrivateKey){
-            EncryptedPrivateKey epk = (EncryptedPrivateKey) obj;
-            return java.util.Arrays.equals(epk.asBytes(), this.asBytes());
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
@@ -290,22 +144,6 @@ class DeviceName {
     static_method device_name::validate(s: &str) -> Result<DeviceName, String>;
     method device_name::name(&self) -> String; alias getName;
     method DeviceName::clone(&self) -> DeviceName;
-    foreigner_code r#"
-    /**
-     * This implementation calls native code, which means it's relatively slow.
-     */
-    @Override
-    public int hashCode() {
-        return this.getName().hashCode();
-    }
-    public boolean equals(Object obj) {
-        if(obj instanceof DeviceName){
-            DeviceName name = (DeviceName) obj;
-            return name.getName().equals(this.getName());
-        }
-        return false;
-    }
-"#;
 });
 
 foreigner_class!(
