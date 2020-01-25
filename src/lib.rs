@@ -26,33 +26,6 @@ use std::convert::TryInto;
 
 include!(concat!(env!("OUT_DIR"), "/lib.rs"));
 
-/// Wrap IronOxide to allow namespacing of the advanced operations
-pub struct IronSdkAdvanced<'a>(&'a IronOxide);
-
-impl<'a> IronSdkAdvanced<'a> {
-    pub fn advanced(ironoxide: &IronOxide) -> IronSdkAdvanced {
-        IronSdkAdvanced(ironoxide)
-    }
-
-    pub fn document_encrypt_unmanaged(
-        &self,
-        data: &[i8],
-        opts: &DocumentEncryptOpts,
-    ) -> Result<DocumentEncryptUnmanagedResult, String> {
-        Ok(self.0.document_encrypt_unmanaged(i8_conv(data), opts)?)
-    }
-
-    pub fn document_decrypt_unmanaged(
-        &self,
-        encrypted_data: &[i8],
-        encrypted_deks: &[i8],
-    ) -> Result<DocumentDecryptUnmanagedResult, String> {
-        Ok(self
-            .0
-            .document_decrypt_unmanaged(i8_conv(encrypted_data), i8_conv(encrypted_deks))?)
-    }
-}
-
 #[derive(Clone)]
 pub struct UserWithKey((UserId, PublicKey));
 impl UserWithKey {
@@ -1040,6 +1013,22 @@ fn group_rotate_private_key(
     group_id: &GroupId,
 ) -> Result<GroupUpdatePrivateKeyResult, String> {
     Ok(sdk.group_rotate_private_key(group_id)?)
+}
+
+fn advanced_document_encrypt_unmanaged(
+    sdk: &IronOxide,
+    data: &[i8],
+    opts: &DocumentEncryptOpts,
+) -> Result<DocumentEncryptUnmanagedResult, String> {
+    Ok(sdk.document_encrypt_unmanaged(i8_conv(data), opts)?)
+}
+
+fn advanced_document_decrypt_unmanaged(
+    sdk: &IronOxide,
+    encrypted_data: &[i8],
+    encrypted_deks: &[i8],
+) -> Result<DocumentDecryptUnmanagedResult, String> {
+    Ok(sdk.document_decrypt_unmanaged(i8_conv(encrypted_data), i8_conv(encrypted_deks))?)
 }
 
 mod group_access_edit_result {
