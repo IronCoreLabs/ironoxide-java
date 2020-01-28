@@ -12,7 +12,7 @@ fn main() {
   let out_dir = env::var("OUT_DIR").expect("no OUT_DIR, but cargo should provide it");
 
   let gen_path = Path::new(&out_dir).join("lib.rs");
-  let cpp_cfg = CppConfig::new(get_cpp_codegen_output_directory(), "sdk".into()).use_boost();
+  let cpp_cfg = CppConfig::new(get_cpp_codegen_output_directory(), "sdk".into()); //.use_boost();
 
   let swig_gen = rust_swig::Generator::new(LanguageConfig::CppConfig(cpp_cfg))
     .merge_type_map("chrono_support", include_str!("src/chrono-include.rs"));

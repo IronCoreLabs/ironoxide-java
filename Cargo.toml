@@ -6,8 +6,8 @@ build = "build.rs"
 edition = "2018"
 
 [lib]
-name = "ironoxide_java"
-crate-type = ["cdylib"]
+name = "ironoxide_shared"
+crate-type = ["cdylib", "static"]
 
 [dependencies]
 log = "0.4"
