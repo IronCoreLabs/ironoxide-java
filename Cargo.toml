@@ -7,7 +7,7 @@ edition = "2018"
 
 [lib]
 name = "ironoxide_shared"
-crate-type = ["cdylib", "static"]
+crate-type = ["cdylib"]
 
 [dependencies]
 log = "0.4"
