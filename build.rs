@@ -1,7 +1,6 @@
 use std::{
   env,
   path::{Path, PathBuf},
-  time::Instant,
 };
 
 use rust_swig::{CppConfig, LanguageConfig};
@@ -29,7 +28,7 @@ fn main() {
 }
 
 fn get_cpp_codegen_output_directory() -> PathBuf {
-  let out_dir = env::var("OUT_DIR").expect("no OUT_DIR, but cargo should provide it");
+  //let out_dir = env::var("OUT_DIR").expect("no OUT_DIR, but cargo should provide it");
   let path = Path::new("cpp").join("sdk");
   if !path.exists() {
     std::fs::create_dir_all(&path).expect("Couldn't create codegen output directory at cpp/sdk/.");
