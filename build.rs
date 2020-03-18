@@ -9,33 +9,33 @@ use rust_swig::{JavaConfig, LanguageConfig};
 fn main() {
     env_logger::init();
 
-    let java_home = env::var("JAVA_HOME").expect("JAVA_HOME env variable not set");
-
-    let java_include_dir = Path::new(&java_home).join("include");
-
-    let target = env::var("TARGET").expect("target env var not set");
-    let java_sys_include_dir = java_include_dir.join(if target.contains("windows") {
-        "win32"
-    } else if target.contains("darwin") {
-        "darwin"
-    } else {
-        "linux"
-    });
-
-    let include_dirs = [java_include_dir, java_sys_include_dir];
-    println!("jni include dirs {:?}", include_dirs);
-
-    let jni_h_path =
-        search_file_in_directory(&include_dirs[..], "jni.h").expect("Can not find jni.h");
-    println!("cargo:rerun-if-changed={}", jni_h_path.display());
+    // let java_home = env::var("JAVA_HOME").expect("JAVA_HOME env variable not set");
+    //
+    // let java_include_dir = Path::new(&java_home).join("include");
+    //
+    // let target = env::var("TARGET").expect("target env var not set");
+    // let java_sys_include_dir = java_include_dir.join(if target.contains("windows") {
+    //     "win32"
+    // } else if target.contains("darwin") {
+    //     "darwin"
+    // } else {
+    //     "linux"
+    // });
+    //
+    // let include_dirs = [java_include_dir, java_sys_include_dir];
+    // println!("jni include dirs {:?}", include_dirs);
+    //
+    // let jni_h_path =
+    //     search_file_in_directory(&include_dirs[..], "jni.h").expect("Can not find jni.h");
+    // println!("cargo:rerun-if-changed={}", jni_h_path.display());
     let out_dir = env::var("OUT_DIR").unwrap();
-
-    gen_binding(
-        &include_dirs[..],
-        &jni_h_path,
-        &Path::new(&out_dir).join("jni_c_header.rs"),
-    )
-    .expect("gen_binding failed");
+    //
+    // gen_binding(
+    //     &include_dirs[..],
+    //     &jni_h_path,
+    //     &Path::new(&out_dir).join("jni_c_header.rs"),
+    // )
+    // .expect("gen_binding failed");
 
     let now = Instant::now();
     let gen_path = Path::new(&out_dir).join("lib.rs");

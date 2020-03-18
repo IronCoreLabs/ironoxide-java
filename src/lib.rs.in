@@ -1,9 +1,10 @@
 use crate::{
     document_access_change_result::{DocumentAccessChange, FailedResult, SucceededResult},
     document_decrypt_unmanaged_result::UserOrGroupId,
-    jni_c_header::*,
+    // jni_c_header::*,
 };
 use chrono::{DateTime, Utc};
+use jni_sys::*;
 
 ///
 /// Classes for Common Types
